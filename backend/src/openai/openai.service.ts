@@ -22,4 +22,22 @@ export class OpenaiService {
     );
     return response.data.choices[0].message.content;
   }
+
+  async generateImage(prompt: string): Promise<string> {
+    const response = await axios.post(
+      'https://api.openai.com/v1/images/generations',
+      {
+        prompt,
+        n: 1,
+        size: '512x512',
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${this.apiKey}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    return response.data.data[0].url;
+  }
 } 

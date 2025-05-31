@@ -17,7 +17,7 @@ export default function SpinButton({ onSpin, globeRef }: SpinButtonProps) {
 
   return (
     <Button variant="primary" onClick={handleSpin} className="mb-3">
-      <FaGlobe /> Spin the Globe
+      <FaGlobe /> Explore a Country
     </Button>
   );
 } 
