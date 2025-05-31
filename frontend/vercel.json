@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://flavour-planet-6bq75589r-shreyanshtech9s-projects.vercel.app/:path*"
+    }
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite"
+}
