@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://flavour-planet-6bq75589r-shreyanshtech9s-projects.vercel.app/:path*"
+      "destination": "https://flavour-planet-n2pfs4yy2-shreyanshtech9s-projects.vercel.app/:path*"
     }
   ],
   "buildCommand": "npm run build",
