@@ -4,6 +4,7 @@ import api from '../services/api';
 class CountryStore {
   selectedCountry = '';
   food = '';
+  foodImage = '';
   fact = '';
   etiquette = '';
   isLoading = false;
@@ -22,6 +23,7 @@ class CountryStore {
     try {
       const res = await api.get(`/country/${name}`);
       this.food = res.data.food;
+      this.foodImage = res.data.foodImage;
       this.fact = res.data.fact;
       this.etiquette = res.data.etiquette;
     } catch (error) {
