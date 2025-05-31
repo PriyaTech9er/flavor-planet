@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = import.meta.env.PROD 
+const baseURL = process.env.NODE_ENV === 'production'
   ? '/api'  // In production, use relative path which will be handled by Vercel rewrites
   : 'http://localhost:3001'; // In development, use local backend
 
