@@ -1,0 +1,88 @@
+@import '../styles/globals.scss';
+
+.world-explorer-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: $background-color;
+}
+
+.world-explorer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    color: $primary-color;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  &__globe-container {
+    width: 350px;
+    height: 350px;
+    margin: 2rem auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+  }
+
+  &__country-details {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    h2 {
+      color: $primary-color;
+      margin-bottom: 1.5rem;
+    }
+
+    h4 {
+      color: $secondary-color;
+      margin: 1.5rem 0 1rem;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+  }
+
+  @include responsive(tablet) {
+    &__globe-container {
+      width: 250px;
+      height: 250px;
+    }
+    &__country-details {
+      padding: 1.5rem;
+    }
+  }
+
+  @include responsive(mobile) {
+    &__globe-container {
+      width: 180px;
+      height: 180px;
+    }
+    &__country-details {
+      padding: 1rem;
+    }
+  }
+}
+
+.world-globe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .world-explorer__globe-container {
+    width: 600px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+  }
+}

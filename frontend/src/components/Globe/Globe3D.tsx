@@ -1,22 +1,29 @@
 import dynamic from 'next/dynamic';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import countryStore from '../../stores/CountryStore';
 import { observer } from 'mobx-react-lite';
+import { countries } from '../../utils/countryList';
 
 // Dynamically import Globe to avoid SSR issues
 const Globe = dynamic(() => import('react-globe.gl'), { ssr: false });
 
-const countries = [
-  { name: 'Italy', lat: 41.8719, lng: 12.5674 },
-  { name: 'Japan', lat: 36.2048, lng: 138.2529 },
-  { name: 'Brazil', lat: -14.2350, lng: -51.9253 },
-  { name: 'India', lat: 20.5937, lng: 78.9629 },
-  { name: 'Mexico', lat: 23.6345, lng: -102.5528 },
-  // Add more countries as needed
-];
-
-const Globe3D = observer(() => {
+const Globe3D = forwardRef((props, ref) => {
   const globeEl = useRef<any>();
+
+  // Expose methods through ref
+  useImperativeHandle(ref, () => ({
+    spin: () => {
+      if (globeEl.current && typeof globeEl.current.controls === 'object') {
+        globeEl.current.controls.autoRotate = true;
+        globeEl.current.controls.autoRotateSpeed = 2;
+        setTimeout(() => {
+          if (globeEl.current && typeof globeEl.current.controls === 'object') {
+            globeEl.current.controls.autoRotate = false;
+          }
+        }, 2000);
+      }
+    }
+  }));
 
   // Focus globe on selected country
   useEffect(() => {
@@ -34,10 +41,12 @@ const Globe3D = observer(() => {
   }, [countryStore.selectedCountry]);
 
   return (
-    <div style={{ height: 400 }}>
+    <div style={{ height: 500 }}>
       <Globe
         ref={globeEl}
-        globeImageUrl="//unpkg.com/three-globe/example/img/earth-dark.jpg"
+        width={500}
+        height={500}
+        globeImageUrl="//unpkg.com/three-globe@2.42.8/example/img/earth-day.jpg"
         backgroundColor="rgba(0,0,0,0)"
         pointsData={countries}
         pointLat="lat"
@@ -45,6 +54,7 @@ const Globe3D = observer(() => {
         pointLabel="name"
         pointColor={() => 'orange'}
         pointAltitude={0.05}
+        enablePointerInteraction={true}
         onPointClick={(point: { name: string; lat: number; lng: number }) => {
           countryStore.setCountry(point.name);
         }}
@@ -53,4 +63,6 @@ const Globe3D = observer(() => {
   );
 });
 
-export default Globe3D; 
+Globe3D.displayName = 'Globe3D';
+
+export default observer(Globe3D); 
